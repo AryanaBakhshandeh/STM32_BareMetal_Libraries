@@ -10,8 +10,6 @@
     <br>
     2.1 <a href="#gpio"><b >GPIO</b> </a>
     <br>
-    2.1.1 <a href="#gpio-example"><b >gpio example program</b> </a>
-    <br>
     2.2 <a href="#adc-example"> <b>ADC</b> </a>
     <br>
     2.3 <a href="#delay"><b>Delay</b></a>
@@ -82,10 +80,30 @@ aryana_GPIOx_Read(char PortName,int* PortInputValue_Array)
 3. use any funtcion as you need... :)
 
 - **GPIO example**
-  
+***Blinking LED***
 ```c++
-aryana_GPIOx_PINi_Write(char PortName,unsigned int pin,int bit)
+#include <stm32f4xx.h>
+#include <aryana_GPIO.h>
+
+#define LED_PORT 'A'
+#define LED_PIN 2
+
+
+int main(void)
+{
+  aryana_GPIOx_Enable(LED_PORT) ;
+  aryana_GPIOx_PINiSetMode_OUT(LED_PORT,LED_PIN)'
+  while(1)
+  {
+      aryana_GPIOx_PINi_High(LED_PORT,LED_PIN);
+      for(int i=0;i<6000 <i++);
+      aryana_GPIOx_PINi_LOW(LED_PORT,LED_PIN);
+      for(int i=0;i<6000 <i++);
+  }
+}
+
 ```
+
 ### ADC
 
 #### ADC example
