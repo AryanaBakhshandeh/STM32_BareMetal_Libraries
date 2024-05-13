@@ -106,18 +106,111 @@ int main(void)
 
 ### ADC
 
-#### ADC example
 
 ### Delay
 
 ### Lcd16x2
 
-#### LCD example
+- **this library has the following functions:** 
+1. config LCD's GPIO pins and turn it on in 4 bit mod 
+  ```c++
+  LCD_Initialaze();
+  ```
+2. send command to LCD
+  ```c++
+  LCD_command(unsigned char command);
+  ```
+3. send single character to LCD
+  ```c++
+  LCD_data_Character(unsigned char command)
+  ```
+4.send string to LCD 
+  ```c++
+   LCD_data_String(char string[]);
+  ```
+
+- **HOW TO USE**
+1. first edit the following macros to match the Hardware
+
+```c++
+#define LCD_port 'A'
+#define LCD_RS_pin 4
+#define LCD_RW_pin 5
+#define LCD_EN_pin 6
+```
+
+2. use LCD_Initialize() function to config GPIO and Run LCD in 4 bit mode
+3.  use LCD_command or LCD_Data functions as you wish... :)
 
 ### KeyPad 
+**this library has the following functions:**
+1. initialize KeyPad 
+```c
+KeyPad_Init(void) 
+```
+2. listen to the KeyPad . if any keys is pressed by the user , ***KeyPad_flag*** will become 1  .
+```c
+KeyPad_Listen_InsideLoop()
+```
+3.find the Row And Col of the Keypad's key that is pressed. the row and col value is stord in these variables : int ***KeyPad_PressedRow*** ***int KeyPad_PressedCol***
+<br>*use this function after ***KeyPad_Listen_InsideLoop()*** as the example .
+```c
+KeyPad_RowColFinder()
+```
 
-#### KeyPad Example
+- **HOW TO USE**
+1. first edit the following macros and array to match the Hardware
+```c++
+#define KeyPad_port 'C'  // 'A' or 'B' or 'C' or 'D'
+#define KeyPad_row1Pin 0
+#define KeyPad_row2Pin 1
+#define KeyPad_row3Pin 2
+#define KeyPad_row4Pin 3
+
+#define KeyPad_col1Pin 4
+#define KeyPad_col2Pin 5
+#define KeyPad_col3Pin 6
+#define KeyPad_col4Pin 7
 
 
+char KeyPad_ArrayCharacters[16] = {'1', '2', '3', 'A',
+                                   '4', '5', '6', 'B',
+                                   '7', '8', '9', 'C',
+                                   '*', '0', '#', 'D'};
+
+```
+2. initialize KeyPad 
+```c
+KeyPad_Init(void) 
+```
+3. do as the following example. 
+
+**example**
+```c++
+#include <stm32f4xx.h>
+     #include "aryana_GPIO.h"
+     #include "aryana_SysTickDelay.h"
+     #include "aryana_Keypad4x4.h"
+     #include "aryana_LCD16x2_4bit.h"
+     int main()
+     {
+          LCD_Initialaze();
+          KeyPad_Init();
+          while (1)
+          {
+               KeyPad_Listen_InsideLoop();
+               KeyPad_RowColFinder();
+               //now col and row is been found ... do your things....
+               if(KeyPad_flag==1){
+                    LCD_data_Character(KeyPad_ArrayCharacters[(4*KeyPad_PressedRow) + (KeyPad_PressedCol)]);
+                    KeyPad_flag=0;
+                    sysTickDelay_ms(2000);
+               }
+               ////-----------------------------------------------
+               KeyPad_ResetPins();
+          }
+     }
+
+```
 
 
