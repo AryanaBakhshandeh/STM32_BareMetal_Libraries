@@ -75,7 +75,7 @@ aryana_GPIOx_Read(char PortName,int* PortInputValue_Array)
 
 - **HOW TO USE**
 
-1. kenable GPIOx by aryana_GPIOx_Enable(char PortName)
+1. enable GPIOx by aryana_GPIOx_Enable(char PortName)
 2. set GPIOx Pin i as input or out put
 3. use any funtcion as you need... :)
 
