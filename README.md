@@ -108,7 +108,15 @@ int main(void)
 
 
 ### Delay
-
+- **this library has the following functions:** 
+1.
+```c++
+sysTickDelay_ms(int delay_ms)
+```
+2. 
+```c++
+sysTickDelay_us(int delay_us)
+```
 ### Lcd16x2
 
 - **this library has the following functions:** 
